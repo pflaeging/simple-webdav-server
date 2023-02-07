@@ -1,0 +1,39 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: simple-webdav-server
+  labels:
+    app: simple-webdav-server
+    app.kubernetes.io/component: simple-webdav-server
+    app.kubernetes.io/instance: simple-webdav-server
+    app.kubernetes.io/part-of: simple-webdav-server
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'simple-webdav-server:latest'
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://gitlab.pflaeging.net/pflaeging-net-public/simple-webdav-server.git'
+      ref: 'main'
+    contextDir: /
+    sourceSecret:
+      name: gitlab-pull-secret
+  triggers:
+    - type: ConfigChange
+  runPolicy: Serial

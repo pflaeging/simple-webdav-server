@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+configurations:
+  - kustomizeconfig.yaml
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - persistentvolumeclaim.yaml
+
+vars:
+- name: ROUTE_SERVICE
+  objref:
+    kind: Service
+    name: simple-webdav-server
+    apiVersion: v1
+  fieldref:
+    fieldpath: metadata.name

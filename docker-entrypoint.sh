@@ -8,7 +8,7 @@ if ! whoami 2> /dev/null; then
     fi
 fi
 
-mkdir -p /data/config/ /data/content/ /data/htdocs/ 
+mkdir -p /data/config/ /data/content/ /data/htdocs/ /data/var/
 
 if [ -f /data/htdocs/index.html ]; then
     echo "Assuming PV has data"

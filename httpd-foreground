@@ -1,0 +1,8 @@
+#!/bin/sh
+# httpd foreground script for ubi-minimal
+set -e
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /run/httpd/httpd.pid 
+
+exec httpd -DFOREGROUND "$@"

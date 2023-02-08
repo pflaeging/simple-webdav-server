@@ -1,7 +1,7 @@
 FROM httpd:bullseye
 
 # set some metadata
-LABEL summary="Apache https webdav server" \
+LABEL summary="Apache https webdav server (apache bullseye version)" \
       maintainer="Peter Pflaeging <peter@pflaeging.net>" \
       io.openshift.expose-services="8080:http"
 

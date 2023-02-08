@@ -13,7 +13,11 @@ mkdir -p /data/config/ /data/content/ /data/htdocs/ /data/var/
 if [ -f /data/htdocs/index.html ]; then
     echo "Assuming PV has data"
 else
-    cp /usr/local/apache2/htdocs/dav-index.html /data/htdocs/index.html
+    # are we on the original apache container or on ubi-minimal?
+    if [ -f /usr/local/apache2/htdocs/dav-index.html ]; then
+        cp /usr/local/apache2/htdocs/dav-index.html /data/htdocs/index.html
+    else
+        cp /etc/httpd/htdocs/dav-index.html /data/htdocs/index.html
 fi
 
 if [ -f /data/config/users.password ]; then

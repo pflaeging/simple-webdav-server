@@ -9,7 +9,15 @@ The system consist of a standard apache container and a minimal configuration fo
 Users are created in a local htpasswd file inside the pvc which stores the files (`/data/config/users.password`).
 
 You can upload static html files to the servers htdocs directory `/data/htdocs/`
+
 ## build
+
+You cn use 2 versions as base container:
+
+- *Dockerfile* -> this version uses the original Apache httpd container in the bullseye variant (alpine version has bugs related to DAV!)
+- *Dockerfile.ubi-minimal* -> this version uses the UBI minimal container (useful for all those people with OpenShift and Red Hat support ;-))
+
+To switch edit `kustomize/build/buildconfig.yaml`.
 
 `oc apply -k kustomize/build/`
 

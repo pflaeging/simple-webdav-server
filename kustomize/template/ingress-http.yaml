@@ -20,4 +20,4 @@ spec:
               service:
                 name: simple-webdav-server-http
                 port:
-                  number: 8081
+                  number: 8080

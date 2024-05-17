@@ -24,7 +24,7 @@ spec:
   strategy:
     type: Docker
     dockerStrategy:
-      dockerfilePath: Dockerfile
+      dockerfilePath: Dockerfile.ubi-minimal
   postCommit: {}
   source:
     type: Git

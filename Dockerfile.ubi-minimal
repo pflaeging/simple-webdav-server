@@ -9,8 +9,8 @@ LABEL summary="Apache https webdav server (ubi-minimal version)" \
 USER 0
 
 # ubi-minimal specific installs and customizings
-RUN microdnf update \
-      && microdnf install httpd tar \
+RUN microdnf update -y \
+      && microdnf -y install httpd tar \
       && ln -sf /var/www/html /etc/httpd/htdocs
 ADD httpd-foreground /usr/local/bin
 RUN chmod 755 /usr/local/bin/httpd-foreground

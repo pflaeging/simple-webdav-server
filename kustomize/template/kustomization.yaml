@@ -3,23 +3,68 @@ kind: Kustomization
 
 resources:
 - ../base
-- route.yaml
+- ingress-http.yaml
+- ingress-webdav.yaml
+
+namePrefix: hugo-
+nameSuffix: -dev
 
 commonLabels:
-  pflaeging.net/stage: test
+  pflaeging.net/stage: dev
 
-patchesStrategicMerge:
-# patch storageclasses
-  - |-
+patches:
+- target:
+    kind: Ingress
+    name: simple-webdav-server-http
+  patch: |-
+    - op: replace
+      path: /spec/tls/0/hosts/0
+      value: simple-server.dev.pflaeging.net
+    - op: replace
+      path: /spec/rules/0/host
+      value: simple-server.dev.pflaeging.net
+- target:
+    kind: Ingress
+    name: simple-webdav-server-webdav
+  patch: |-
+    - op: replace
+      path: /spec/tls/0/hosts/0
+      value: simple-server-publish.dev.pflaeging.net
+    - op: replace
+      path: /spec/rules/0/host
+      value: simple-server-publish.dev.pflaeging.net
+- target:
     kind: PersistentVolumeClaim
-    apiVersion: v1
-    metadata:
-      name: simple-webdav-server
-    spec:
-      storageClassName: rook-cephfs
-      resources:
-        requests:
-          storage: 1Gi
+    name: simple-webdav-server
+  patch: |-
+    - op: replace
+      path: /spec/storageClassName
+      value: rook-cephfs
+    - op: replace
+      path: /spec/resources/requests/storage
+      value: 2Gi
+
+replacements:
+- source:
+    kind: Service
+    name: simple-webdav-server-http
+    fieldPath: metadata.name
+  targets:
+    - select:
+        kind: Ingress
+        name: simple-webdav-server-http
+      fieldPaths:
+      - spec.rules.0.http.paths.0.backend.service.name
+- source:
+    kind: Service
+    name: simple-webdav-server-webdav
+    fieldPath: metadata.name
+  targets:
+    - select:
+        kind: Ingress
+        name: simple-webdav-server-webdav
+      fieldPaths:
+      - spec.rules.0.http.paths.0.backend.service.name
 
 images:
 - name: quay.io/pflaeging/simple-webdav-server:latest

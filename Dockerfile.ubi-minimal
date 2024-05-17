@@ -1,14 +1,16 @@
-FROM redhat/ubi8-minimal
+FROM redhat/ubi9-minimal
 
 # set some metadata
 LABEL summary="Apache https webdav server (ubi-minimal version)" \
       maintainer="Peter Pflaeging <peter@pflaeging.net>" \
-      io.openshift.expose-services="8080:http"
+      io.openshift.expose-services="8080:http"\
+      io.openshift.expose-services="8081:http"
 
 USER 0
 
 # ubi-minimal specific installs and customizings
-RUN microdnf install httpd tar\
+RUN microdnf update \
+      && microdnf install httpd tar \
       && ln -sf /var/www/html /etc/httpd/htdocs
 ADD httpd-foreground /usr/local/bin
 RUN chmod 755 /usr/local/bin/httpd-foreground
@@ -33,6 +35,7 @@ RUN chmod 755 /usr/local/bin/docker-entrypoint.sh
 # setups
 VOLUME /data
 EXPOSE 8080
+EXPOSE 8081
 
 USER 11177:0
 # entrypoint makes setups

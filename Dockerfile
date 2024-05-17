@@ -3,7 +3,8 @@ FROM httpd:bullseye
 # set some metadata
 LABEL summary="Apache https webdav server (apache bullseye version)" \
       maintainer="Peter Pflaeging <peter@pflaeging.net>" \
-      io.openshift.expose-services="8080:http"
+      io.openshift.expose-services="8080:http" \
+      io.openshift.expose-services="8081:http"
 
 USER 0
 
@@ -27,6 +28,7 @@ RUN chmod 755 $HOME/bin/docker-entrypoint.sh
 # setups
 VOLUME /data
 EXPOSE 8080
+EXPOSE 8081
 
 USER 11177:0
 # entrypoint makes setups

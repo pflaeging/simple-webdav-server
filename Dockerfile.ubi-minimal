@@ -17,6 +17,7 @@ RUN chmod 755 /usr/local/bin/httpd-foreground
 
 # make /etc/passwd for group 0 writable
 RUN chmod g=u /etc/passwd
+RUN chown root:root /run/httpd && chmod 770 /run/httpd
 
 # setup APP dir
 ENV HOME=/etc/httpd

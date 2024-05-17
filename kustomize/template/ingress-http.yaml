@@ -1,0 +1,23 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: simple-webdav-server-http
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: openshift-default
+  tls:
+    - hosts:
+        - overwrite.by.kustomize.dev
+      secretName: simple-webdav-server-http-secret
+  rules:
+    - host: overwrite.by.kustomize.dev
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: simple-webdav-server-http
+                port:
+                  number: 8081

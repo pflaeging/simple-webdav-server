@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: simple-webdav-server-webdav
+spec:
+  ports:
+    - name: http-alternate1
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+  selector:
+    app: simple-webdav-server
+  type: ClusterIP
+  sessionAffinity: None
+

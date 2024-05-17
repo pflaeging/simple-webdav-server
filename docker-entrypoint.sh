@@ -18,6 +18,7 @@ else
         cp /usr/local/apache2/htdocs/dav-index.html /data/htdocs/index.html
     else
         cp /etc/httpd/htdocs/dav-index.html /data/htdocs/index.html
+    fi
 fi
 
 if [ -f /data/config/users.password ]; then

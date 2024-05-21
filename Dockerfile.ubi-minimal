@@ -14,6 +14,7 @@ RUN microdnf update -y \
       && ln -sf /var/www/html /etc/httpd/htdocs
 ADD httpd-foreground /usr/local/bin
 RUN chmod 755 /usr/local/bin/httpd-foreground
+RUN cp /etc/mime.types /etc/httpd/conf/
 
 # make /etc/passwd for group 0 writable
 RUN chmod g=u /etc/passwd

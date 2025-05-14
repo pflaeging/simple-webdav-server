@@ -9,8 +9,9 @@ resources:
 namePrefix: hugo-
 nameSuffix: -dev
 
-commonLabels:
-  pflaeging.net/stage: dev
+labels:
+  - pairs:
+      pflaeging.net/stage: dev
 
 patches:
 - target:

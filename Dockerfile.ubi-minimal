@@ -1,4 +1,4 @@
-FROM redhat/ubi10-minimal-minimal
+FROM redhat/ubi10-minimal
 
 # set some metadata
 LABEL summary="Apache https webdav server (ubi-minimal version)" \

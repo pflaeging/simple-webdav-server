@@ -29,7 +29,7 @@ spec:
   source:
     type: Git
     git:
-      uri: 'https://gitlab.pflaeging.net/pflaeging-net-public/simple-webdav-server.git'
+      uri: 'https://git.pflaeging.net/pflaeging-net-public/simple-webdav-server.git'
       ref: 'main'
     contextDir: /
     sourceSecret:
